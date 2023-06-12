@@ -13,16 +13,32 @@ enum NetworkImageServiceError: Error {
 }
 
 class NetworkImageService {
+    
+    private init() {}
+    static let shared = NetworkImageService()
+    var cache: [URL: UIImage] = [:]
+    
     func getImage(url: URL) -> AnyPublisher<UIImage, Error> {
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .map { $0.data }
-            .tryMap {
-                guard let image = UIImage(data: $0) else { throw NetworkImageServiceError.invalidData }
-                return image
-            }
+        
+        if let image = cache[url] {
+            return Just(image)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        } else {
+            return URLSession.shared.dataTaskPublisher(for: url)
+                .delay(for: .seconds(0.1), scheduler: DispatchQueue.main)
+                .subscribe(on: DispatchQueue.global(qos: .background))
+                .map { $0.data }
+                .tryMap { [weak self] in
+                    guard let image = UIImage(data: $0) else { throw NetworkImageServiceError.invalidData }
+                    
+                    self?.cache[url] = image
+                    
+                    return image
+                }
             //could use a replace error here to use a placeholder
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+                .receive(on: DispatchQueue.main)
+                .eraseToAnyPublisher()
+        }
     }
 }

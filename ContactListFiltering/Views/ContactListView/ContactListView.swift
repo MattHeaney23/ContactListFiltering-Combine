@@ -12,8 +12,12 @@ struct ContactListView: View {
     @ObservedObject var viewModel: ContactListViewModel = ContactListViewModel()
     
     var body: some View {
-        List(viewModel.contactsToDisplay) { contact in
-            ContactRow(viewModel: ContactRowViewModel(contact: contact))
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.contactsToDisplay) { contact in
+                    ContactRow(viewModel: ContactRowViewModel(contact: contact))
+                }
+            }
         }
     }
 }

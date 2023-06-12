@@ -11,9 +11,9 @@ import SwiftUI
 struct ContactListFilteringApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            //NavigationView {
                 ContactListView()
-            }
+            //}
         }
     }
 }

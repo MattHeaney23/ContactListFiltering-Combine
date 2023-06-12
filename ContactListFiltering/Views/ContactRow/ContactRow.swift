@@ -10,18 +10,23 @@ import SwiftUI
 
 class ContactRowViewModel: ObservableObject {
     
-    //let network = NetworkService()
-    let imageDownloader = NetworkImageService()
+    let imageDownloader: NetworkImageService
     let contact: Contact
     var cancellables = Set<AnyCancellable>()
     @Published var image: UIImage? = nil
     
-    init(contact: Contact) {
+    init(contact: Contact, imageDownloader: NetworkImageService = .shared) {
         self.contact = contact
-        self.downloadImage()
+        self.imageDownloader = imageDownloader
+        print("Init for \(self.contact.name)")
+        //self.downloadImage()
     }
     
-    private func downloadImage() {
+    deinit {
+        print("Deinit for \(self.contact.name)")
+    }
+    
+    func onRowAppear() {
         
         guard let url = URL(string: contact.profilePictureURL) else { fatalError("bruh") }
         
@@ -31,13 +36,21 @@ class ContactRowViewModel: ObservableObject {
             },
                   receiveValue: { image in
                 self.image = image
+                //store to cache here
                 print("got the image for \(self.contact.name)!")
             })
             .store(in: &cancellables)
-        
     }
     
-    
+    func onRowDisappear() {
+        cancellables.forEach {
+            $0.cancel()
+        }
+        
+        cancellables.removeAll()
+        
+        image = nil
+    }
 }
 
 struct ContactRow: View {
@@ -49,10 +62,28 @@ struct ContactRow: View {
         HStack {
             if let image = viewModel.image {
                 Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 80, height: 80)
+            } else {
+                ProgressView()
+                    .frame(width: 80, height: 80)
             }
             
+            Spacer()
+            
             Text(viewModel.contact.name)
-                .padding(.vertical, 100)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 100)
+        .onAppear {
+            viewModel.onRowAppear()
+            print("Appear on \(viewModel.contact.name)")
+        }.onDisappear {
+            viewModel.onRowDisappear()
+            print("Disappear on \(viewModel.contact.name)")
         }
     }
 }

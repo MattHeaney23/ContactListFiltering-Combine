@@ -11,7 +11,7 @@ import Foundation
 class ContactListViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
-    var allContacts: [Contact] = []
+    private var allContacts: [Contact] = []
     @Published var contactsToDisplay: [Contact] = []
     let networkService: NetworkService<[Contact]> = NetworkService()
     
