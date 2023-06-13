@@ -16,17 +16,10 @@ class Contact: Codable {
     /// Last online is nil if the user is currently online
     let lastOnline: String?
     
+    /// lastOnline, in "HH:mm, dd MMMM" format
     var displayableLastOnlineTime: String? {
-        guard let lastOnline else { return nil }
-    
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = dateFormatter.date(from: lastOnline) else { return "2" }
-        
-        let dateFormatterGet2 = DateFormatter()
-        dateFormatterGet2.dateFormat = "HH:mm, dd MMMM"
-
-        return dateFormatterGet2.string(from: date)
+        let date = lastOnline?.convertToDate()
+        return date?.convertToReadableDate()
     }
 }
 

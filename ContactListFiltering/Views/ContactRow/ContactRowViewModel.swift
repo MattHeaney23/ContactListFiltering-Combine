@@ -18,13 +18,6 @@ class ContactRowViewModel: ObservableObject {
     init(contact: Contact, imageDownloader: NetworkImageService = .shared) {
         self.contact = contact
         self.imageDownloader = imageDownloader
-        print("Init for \(self.contact.name)")
-        // self.onRowAppear()
-        // self.downloadImage()
-    }
-    
-    deinit {
-        print("Deinit for \(self.contact.name)")
     }
     
     func onRowAppear() {

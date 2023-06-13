@@ -12,8 +12,8 @@ struct ContactListView: View {
     @ObservedObject var viewModel: ContactListViewModel = ContactListViewModel()
     
     var body: some View {
-        VStack {
-            //Wrap this into a loading state so the user cannot search when it's loading
+        VStack(spacing: 0) {
+            //Wrap this into a loading state so the user cannot search when it's loading, and handle the error states
             TextField("Search...", text: $viewModel.searchTerm)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 16)

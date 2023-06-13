@@ -49,14 +49,15 @@ class ContactListViewModel: ObservableObject {
         
         networkService.fetchData(url: url)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                print("Completed: \(completion)")
-            },
-                  receiveValue: { [weak self] value in
-                print("value! \(value)")
-                self?.allContacts = value
-                self?.contactsToDisplay = value
-            })
+            .sink(
+                receiveCompletion: { completion in
+                    print("Completed: \(completion)")
+                },
+                receiveValue: { [weak self] value in
+                    let orderedValue = value.sorted { ($0.name, $0.currentlyOnline ? 0 : 1) < ($1.name, $1.currentlyOnline ? 0 : 1) }
+                    self?.allContacts = orderedValue
+                    self?.contactsToDisplay = orderedValue
+                })
             .store(in: &cancellables)
     }
 }

@@ -21,6 +21,9 @@
 		C912171C2A387E3E00F45028 /* ContactRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912171B2A387E3E00F45028 /* ContactRowViewModel.swift */; };
 		C912171F2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */; };
 		C91217222A38A57400F45028 /* OutOfScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217212A38A57400F45028 /* OutOfScopeView.swift */; };
+		C91217262A38BF4100F45028 /* NetworkImageServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217252A38BF4100F45028 /* NetworkImageServiceError.swift */; };
+		C912172B2A39181000F45028 /* Date+ConvertToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912172A2A39181000F45028 /* Date+ConvertToReadableDate.swift */; };
+		C912172D2A39183500F45028 /* String+ConvertToDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912172C2A39183500F45028 /* String+ConvertToDate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		C912171B2A387E3E00F45028 /* ContactRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRowViewModel.swift; sourceTree = "<group>"; };
 		C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ContainsNotCaseSensitive.swift"; sourceTree = "<group>"; };
 		C91217212A38A57400F45028 /* OutOfScopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutOfScopeView.swift; sourceTree = "<group>"; };
+		C91217252A38BF4100F45028 /* NetworkImageServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageServiceError.swift; sourceTree = "<group>"; };
+		C912172A2A39181000F45028 /* Date+ConvertToReadableDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ConvertToReadableDate.swift"; sourceTree = "<group>"; };
+		C912172C2A39183500F45028 /* String+ConvertToDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertToDate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +100,9 @@
 		C91217072A37718800F45028 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C91217082A3771A600F45028 /* NetworkService.swift */,
-				C91217172A3798C900F45028 /* NetworkImageService.swift */,
-				C91217192A3872E800F45028 /* ImageCacheService.swift */,
+				C91217242A38BE6000F45028 /* NetworkImageService */,
+				C91217232A38BE5B00F45028 /* NetworkRequests */,
+				C91217272A38BF4D00F45028 /* ImageCacheService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -148,7 +154,8 @@
 		C912171D2A389C2200F45028 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */,
+				C91217292A3917EE00F45028 /* Date */,
+				C91217282A3917E200F45028 /* String */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -159,6 +166,48 @@
 				C91217212A38A57400F45028 /* OutOfScopeView.swift */,
 			);
 			path = OutOfScopeView;
+			sourceTree = "<group>";
+		};
+		C91217232A38BE5B00F45028 /* NetworkRequests */ = {
+			isa = PBXGroup;
+			children = (
+				C91217082A3771A600F45028 /* NetworkService.swift */,
+			);
+			path = NetworkRequests;
+			sourceTree = "<group>";
+		};
+		C91217242A38BE6000F45028 /* NetworkImageService */ = {
+			isa = PBXGroup;
+			children = (
+				C91217172A3798C900F45028 /* NetworkImageService.swift */,
+				C91217252A38BF4100F45028 /* NetworkImageServiceError.swift */,
+			);
+			path = NetworkImageService;
+			sourceTree = "<group>";
+		};
+		C91217272A38BF4D00F45028 /* ImageCacheService */ = {
+			isa = PBXGroup;
+			children = (
+				C91217192A3872E800F45028 /* ImageCacheService.swift */,
+			);
+			path = ImageCacheService;
+			sourceTree = "<group>";
+		};
+		C91217282A3917E200F45028 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */,
+				C912172C2A39183500F45028 /* String+ConvertToDate.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
+		C91217292A3917EE00F45028 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				C912172A2A39181000F45028 /* Date+ConvertToReadableDate.swift */,
+			);
+			path = Date;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,16 +281,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91217102A378B3100F45028 /* URLs.swift in Sources */,
+				C91217262A38BF4100F45028 /* NetworkImageServiceError.swift in Sources */,
 				C912170C2A3771D300F45028 /* Contact.swift in Sources */,
 				C91217182A3798C900F45028 /* NetworkImageService.swift in Sources */,
 				C91216FC2A37716A00F45028 /* ContactListView.swift in Sources */,
 				C91217132A37909700F45028 /* ContactListViewModel.swift in Sources */,
 				C912171F2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift in Sources */,
 				C91217092A3771A600F45028 /* NetworkService.swift in Sources */,
+				C912172B2A39181000F45028 /* Date+ConvertToReadableDate.swift in Sources */,
 				C91217162A37982F00F45028 /* ContactRow.swift in Sources */,
 				C91216FA2A37716A00F45028 /* ContactListFilteringApp.swift in Sources */,
 				C91217222A38A57400F45028 /* OutOfScopeView.swift in Sources */,
 				C912171C2A387E3E00F45028 /* ContactRowViewModel.swift in Sources */,
+				C912172D2A39183500F45028 /* String+ConvertToDate.swift in Sources */,
 				C912171A2A3872E800F45028 /* ImageCacheService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

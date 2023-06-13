@@ -8,10 +8,6 @@
 import Combine
 import UIKit
 
-enum NetworkImageServiceError: Error {
-    case invalidData
-}
-
 class NetworkImageService {
     
     private init() {}

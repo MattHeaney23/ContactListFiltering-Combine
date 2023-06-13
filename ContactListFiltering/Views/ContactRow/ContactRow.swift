@@ -33,19 +33,28 @@ struct ContactRow: View {
                     Text(viewModel.contact.name)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                
                 Text(viewModel.contact.username)
+                    .italic()
+                    .font(.footnote)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if let lastOnline = viewModel.contact.displayableLastOnlineTime {
-                    Text("Last Seen: \(lastOnline)")
+                if viewModel.contact.currentlyOnline {
+                    Text("Online")
                         .font(.footnote)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                } else {
+                    if let lastOnline = viewModel.contact.displayableLastOnlineTime {
+                        Text("Last Seen: \(lastOnline)")
+                            .font(.footnote)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
             }
         }
-        .padding(.vertical, 10)
-        .padding(.horizontal, 8)
         .frame(maxWidth: .infinity)
-        .frame(height: 120)
+        .frame(height: 80)
+        //.padding(.vertical, 10)
         .onAppear { viewModel.onRowAppear() }
         .onDisappear { viewModel.onRowDisappear() }
     }
