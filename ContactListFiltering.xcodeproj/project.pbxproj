@@ -17,6 +17,10 @@
 		C91217132A37909700F45028 /* ContactListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217122A37909700F45028 /* ContactListViewModel.swift */; };
 		C91217162A37982F00F45028 /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217152A37982F00F45028 /* ContactRow.swift */; };
 		C91217182A3798C900F45028 /* NetworkImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217172A3798C900F45028 /* NetworkImageService.swift */; };
+		C912171A2A3872E800F45028 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217192A3872E800F45028 /* ImageCacheService.swift */; };
+		C912171C2A387E3E00F45028 /* ContactRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912171B2A387E3E00F45028 /* ContactRowViewModel.swift */; };
+		C912171F2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */; };
+		C91217222A38A57400F45028 /* OutOfScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217212A38A57400F45028 /* OutOfScopeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +35,10 @@
 		C91217122A37909700F45028 /* ContactListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewModel.swift; sourceTree = "<group>"; };
 		C91217152A37982F00F45028 /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
 		C91217172A3798C900F45028 /* NetworkImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageService.swift; sourceTree = "<group>"; };
+		C91217192A3872E800F45028 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
+		C912171B2A387E3E00F45028 /* ContactRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRowViewModel.swift; sourceTree = "<group>"; };
+		C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ContainsNotCaseSensitive.swift"; sourceTree = "<group>"; };
+		C91217212A38A57400F45028 /* OutOfScopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutOfScopeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,7 @@
 				C912170A2A3771BC00F45028 /* Models */,
 				C91217072A37718800F45028 /* Services */,
 				C91216FD2A37716B00F45028 /* Assets.xcassets */,
+				C912171D2A389C2200F45028 /* Extensions */,
 				C912170E2A378B2000F45028 /* Constants */,
 				C91216FF2A37716B00F45028 /* Preview Content */,
 			);
@@ -87,6 +96,7 @@
 			children = (
 				C91217082A3771A600F45028 /* NetworkService.swift */,
 				C91217172A3798C900F45028 /* NetworkImageService.swift */,
+				C91217192A3872E800F45028 /* ImageCacheService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -104,6 +114,7 @@
 			children = (
 				C91217112A37908700F45028 /* ContactListView */,
 				C91217142A3790AF00F45028 /* ContactRow */,
+				C91217202A38A55C00F45028 /* OutOfScopeView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -129,8 +140,25 @@
 			isa = PBXGroup;
 			children = (
 				C91217152A37982F00F45028 /* ContactRow.swift */,
+				C912171B2A387E3E00F45028 /* ContactRowViewModel.swift */,
 			);
 			path = ContactRow;
+			sourceTree = "<group>";
+		};
+		C912171D2A389C2200F45028 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C912171E2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C91217202A38A55C00F45028 /* OutOfScopeView */ = {
+			isa = PBXGroup;
+			children = (
+				C91217212A38A57400F45028 /* OutOfScopeView.swift */,
+			);
+			path = OutOfScopeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,9 +236,13 @@
 				C91217182A3798C900F45028 /* NetworkImageService.swift in Sources */,
 				C91216FC2A37716A00F45028 /* ContactListView.swift in Sources */,
 				C91217132A37909700F45028 /* ContactListViewModel.swift in Sources */,
+				C912171F2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift in Sources */,
 				C91217092A3771A600F45028 /* NetworkService.swift in Sources */,
 				C91217162A37982F00F45028 /* ContactRow.swift in Sources */,
 				C91216FA2A37716A00F45028 /* ContactListFilteringApp.swift in Sources */,
+				C91217222A38A57400F45028 /* OutOfScopeView.swift in Sources */,
+				C912171C2A387E3E00F45028 /* ContactRowViewModel.swift in Sources */,
+				C912171A2A3872E800F45028 /* ImageCacheService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,29 +16,39 @@ class NetworkImageService {
     
     private init() {}
     static let shared = NetworkImageService()
-    var cache: [URL: UIImage] = [:]
+    let cache = ImageCacheService.Shared
     
     func getImage(url: URL) -> AnyPublisher<UIImage, Error> {
         
-        if let image = cache[url] {
-            return Just(image)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        } else {
-            return URLSession.shared.dataTaskPublisher(for: url)
-                .delay(for: .seconds(0.1), scheduler: DispatchQueue.main)
-                .subscribe(on: DispatchQueue.global(qos: .background))
-                .map { $0.data }
-                .tryMap { [weak self] in
-                    guard let image = UIImage(data: $0) else { throw NetworkImageServiceError.invalidData }
-                    
-                    self?.cache[url] = image
-                    
-                    return image
+        cache.imageFromCacheIfAvailable(url: url)
+            .flatMap {
+                if let image = $0 {
+                    return Just(image)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                } else {
+                    return self.getImageFromNetwork(url: url)
                 }
-            //could use a replace error here to use a placeholder
-                .receive(on: DispatchQueue.main)
-                .eraseToAnyPublisher()
-        }
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func getImageFromNetwork(url: URL) -> AnyPublisher<UIImage, Error> {
+        URLSession.shared.dataTaskPublisher(for: url)
+            .delay(for: .seconds(0.1), scheduler: DispatchQueue.main)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .map { $0.data }
+            .tryMap {
+                guard let image = UIImage(data: $0) else { throw NetworkImageServiceError.invalidData }
+                self.cache.storeImageInCache(image: image, url: url)
+                return image
+            }
+            .catch { _ in
+                 Just(UIImage(named: "")!)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }

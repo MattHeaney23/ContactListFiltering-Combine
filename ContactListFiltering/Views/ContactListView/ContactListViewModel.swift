@@ -15,8 +15,29 @@ class ContactListViewModel: ObservableObject {
     @Published var contactsToDisplay: [Contact] = []
     let networkService: NetworkService<[Contact]> = NetworkService()
     
+    @Published var searchTerm: String = ""
+    
     init() {
         fetchStoredContactDetails()
+        registerSubscribers()
+    }
+    
+    private func registerSubscribers() {
+        $searchTerm
+            .flatMap { self.searchFilter(newSearchTerm: $0) }
+            .sink { self.contactsToDisplay = $0 }
+            .store(in: &cancellables)
+    }
+    
+    private func searchFilter(newSearchTerm: String) -> Just<[Contact]> {
+        if newSearchTerm == "" {
+            return Just(self.allContacts)
+        } else {
+            return Just(self.allContacts)
+                .map {
+                    $0.filter { $0.name.containsNotCaseSensitive(newSearchTerm) }
+                }
+        }
     }
     
     func fetchStoredContactDetails() {
@@ -38,5 +59,4 @@ class ContactListViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-    
 }

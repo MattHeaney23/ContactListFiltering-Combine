@@ -12,12 +12,16 @@ struct ContactListView: View {
     @ObservedObject var viewModel: ContactListViewModel = ContactListViewModel()
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(viewModel.contactsToDisplay) { contact in
-                    ContactRow(viewModel: ContactRowViewModel(contact: contact))
-                }
+        VStack {
+            //Wrap this into a loading state so the user cannot search when it's loading
+            TextField("Search...", text: $viewModel.searchTerm)
+                .textFieldStyle(.roundedBorder)
+                .padding(.horizontal, 16)
+            
+            List(viewModel.contactsToDisplay) { contact in
+                ContactRow(viewModel: ContactRowViewModel(contact: contact))
             }
+            .listStyle(.plain)
         }
     }
 }
