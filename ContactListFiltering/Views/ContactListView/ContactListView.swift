@@ -11,14 +11,25 @@ struct ContactListView: View {
     
     @ObservedObject var viewModel: ContactListViewModel = ContactListViewModel()
     
+    //MARK: Views - Body
+    
     var body: some View {
+        switch viewModel.loadingState {
+        case .loading: LoadingComponent()
+        case .error(let error): ErrorComponent(error: error)
+        case .ready(let contacts): contactList(contacts: contacts)
+        }
+    }
+
+    //MARK: Views - Contact List
+    
+    func contactList(contacts: [Contact]) -> some View {
         VStack(spacing: 0) {
-            //Wrap this into a loading state so the user cannot search when it's loading, and handle the error states
             TextField("Search...", text: $viewModel.searchTerm)
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 16)
             
-            List(viewModel.contactsToDisplay) { contact in
+            List(contacts) { contact in
                 ContactRow(viewModel: ContactRowViewModel(contact: contact))
             }
             .listStyle(.plain)

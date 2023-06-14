@@ -26,6 +26,7 @@ class NetworkImageService {
                     return self.getImageFromNetwork(url: url)
                 }
             }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 
@@ -39,12 +40,6 @@ class NetworkImageService {
                 self.cache.storeImageInCache(image: image, url: url)
                 return image
             }
-            .catch { _ in
-                 Just(UIImage(named: "")!)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
-            }
-            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

@@ -10,12 +10,14 @@ import Foundation
 
 class ContactListViewModel: ObservableObject {
     
-    var cancellables = Set<AnyCancellable>()
     private var allContacts: [Contact] = []
-    @Published var contactsToDisplay: [Contact] = []
-    let networkService: NetworkService<[Contact]> = NetworkService()
+    private let networkService: NetworkService<[Contact]> = NetworkService()
     
     @Published var searchTerm: String = ""
+    
+    @Published var loadingState: LoadingState<[Contact]> = .loading
+    
+    var cancellables = Set<AnyCancellable>()
     
     init() {
         fetchStoredContactDetails()
@@ -25,7 +27,7 @@ class ContactListViewModel: ObservableObject {
     private func registerSubscribers() {
         $searchTerm
             .flatMap { self.searchFilter(newSearchTerm: $0) }
-            .sink { self.contactsToDisplay = $0 }
+            .sink { self.loadingState = .ready($0) }
             .store(in: &cancellables)
     }
     
@@ -43,20 +45,23 @@ class ContactListViewModel: ObservableObject {
     func fetchStoredContactDetails() {
         
         guard let url = URLs.contactListURL else {
-            //handle error
+            self.loadingState = .error(ContactListError.invalidURL)
             return
         }
         
         networkService.fetchData(url: url)
             .receive(on: DispatchQueue.main)
             .sink(
-                receiveCompletion: { completion in
-                    print("Completed: \(completion)")
+                receiveCompletion: { [weak self] completion in
+                    switch completion {
+                    case .failure(let error): self?.loadingState = .error(error)
+                    case .finished: return
+                    }
                 },
                 receiveValue: { [weak self] value in
-                    let orderedValue = value.sorted { ($0.name, $0.currentlyOnline ? 0 : 1) < ($1.name, $1.currentlyOnline ? 0 : 1) }
+                    let orderedValue = value.sorted { $0.name < $1.name }
                     self?.allContacts = orderedValue
-                    self?.contactsToDisplay = orderedValue
+                    self?.loadingState = .ready(orderedValue)
                 })
             .store(in: &cancellables)
     }

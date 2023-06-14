@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct ContactListFilteringApp: App {
     
+    //The starting value is 3 to start in the contacts tab, where the work for this solution is. The other tabs are for display purposes only
     @State var selectedTabTag = 3
     
     init() {

@@ -13,7 +13,8 @@ class ContactRowViewModel: ObservableObject {
     let imageDownloader: NetworkImageService
     let contact: Contact
     var cancellables = Set<AnyCancellable>()
-    @Published var image: UIImage? = nil
+
+    @Published var loadingState: LoadingState<UIImage> = .loading
     
     init(contact: Contact, imageDownloader: NetworkImageService = .shared) {
         self.contact = contact
@@ -22,27 +23,28 @@ class ContactRowViewModel: ObservableObject {
     
     func onRowAppear() {
         
-        guard let url = URL(string: contact.profilePictureURL) else { fatalError("bruh") } //change this
+        self.loadingState = .loading
+        
+        guard let url = URL(string: contact.profilePictureURL) else {
+            self.loadingState = .error(ContactProfilePictureError.invalidURL)
+            return
+        }
         
         imageDownloader.getImage(url: url)
-            .sink(receiveCompletion: { completion in
-                print(completion)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished: return
+                case .failure(let error): self?.loadingState = .error(error)
+                }
             },
-            receiveValue: { image in
-                self.image = image
-                //store to cache here
-                print("got the image for \(self.contact.name)!")
+            receiveValue: { [weak self] image in
+                self?.loadingState = .ready(image)
             })
             .store(in: &cancellables)
     }
     
     func onRowDisappear() {
-        cancellables.forEach {
-            $0.cancel()
-        }
-        
+        cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
-        
-        image = nil
     }
 }

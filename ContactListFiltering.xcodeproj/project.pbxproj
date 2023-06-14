@@ -24,6 +24,11 @@
 		C91217262A38BF4100F45028 /* NetworkImageServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217252A38BF4100F45028 /* NetworkImageServiceError.swift */; };
 		C912172B2A39181000F45028 /* Date+ConvertToReadableDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912172A2A39181000F45028 /* Date+ConvertToReadableDate.swift */; };
 		C912172D2A39183500F45028 /* String+ConvertToDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912172C2A39183500F45028 /* String+ConvertToDate.swift */; };
+		C91217312A39C62F00F45028 /* LoadingComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C912172F2A39C62E00F45028 /* LoadingComponent.swift */; };
+		C91217322A39C62F00F45028 /* ErrorComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217302A39C62E00F45028 /* ErrorComponent.swift */; };
+		C91217352A39C82100F45028 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217342A39C82100F45028 /* LoadingState.swift */; };
+		C91217372A39C83900F45028 /* ContactListError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217362A39C83900F45028 /* ContactListError.swift */; };
+		C91217392A39C92000F45028 /* ContactProfilePictureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91217382A39C92000F45028 /* ContactProfilePictureError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +50,11 @@
 		C91217252A38BF4100F45028 /* NetworkImageServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageServiceError.swift; sourceTree = "<group>"; };
 		C912172A2A39181000F45028 /* Date+ConvertToReadableDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ConvertToReadableDate.swift"; sourceTree = "<group>"; };
 		C912172C2A39183500F45028 /* String+ConvertToDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertToDate.swift"; sourceTree = "<group>"; };
+		C912172F2A39C62E00F45028 /* LoadingComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingComponent.swift; sourceTree = "<group>"; };
+		C91217302A39C62E00F45028 /* ErrorComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorComponent.swift; sourceTree = "<group>"; };
+		C91217342A39C82100F45028 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
+		C91217362A39C83900F45028 /* ContactListError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListError.swift; sourceTree = "<group>"; };
+		C91217382A39C92000F45028 /* ContactProfilePictureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactProfilePictureError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +92,7 @@
 				C912170A2A3771BC00F45028 /* Models */,
 				C91217072A37718800F45028 /* Services */,
 				C91216FD2A37716B00F45028 /* Assets.xcassets */,
+				C91217332A39C81800F45028 /* State */,
 				C912171D2A389C2200F45028 /* Extensions */,
 				C912170E2A378B2000F45028 /* Constants */,
 				C91216FF2A37716B00F45028 /* Preview Content */,
@@ -121,6 +132,7 @@
 				C91217112A37908700F45028 /* ContactListView */,
 				C91217142A3790AF00F45028 /* ContactRow */,
 				C91217202A38A55C00F45028 /* OutOfScopeView */,
+				C912172E2A39C62E00F45028 /* ReusableViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -138,6 +150,7 @@
 			children = (
 				C91216FB2A37716A00F45028 /* ContactListView.swift */,
 				C91217122A37909700F45028 /* ContactListViewModel.swift */,
+				C91217362A39C83900F45028 /* ContactListError.swift */,
 			);
 			path = ContactListView;
 			sourceTree = "<group>";
@@ -147,6 +160,7 @@
 			children = (
 				C91217152A37982F00F45028 /* ContactRow.swift */,
 				C912171B2A387E3E00F45028 /* ContactRowViewModel.swift */,
+				C91217382A39C92000F45028 /* ContactProfilePictureError.swift */,
 			);
 			path = ContactRow;
 			sourceTree = "<group>";
@@ -208,6 +222,23 @@
 				C912172A2A39181000F45028 /* Date+ConvertToReadableDate.swift */,
 			);
 			path = Date;
+			sourceTree = "<group>";
+		};
+		C912172E2A39C62E00F45028 /* ReusableViews */ = {
+			isa = PBXGroup;
+			children = (
+				C912172F2A39C62E00F45028 /* LoadingComponent.swift */,
+				C91217302A39C62E00F45028 /* ErrorComponent.swift */,
+			);
+			path = ReusableViews;
+			sourceTree = "<group>";
+		};
+		C91217332A39C81800F45028 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				C91217342A39C82100F45028 /* LoadingState.swift */,
+			);
+			path = State;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,9 +313,12 @@
 			files = (
 				C91217102A378B3100F45028 /* URLs.swift in Sources */,
 				C91217262A38BF4100F45028 /* NetworkImageServiceError.swift in Sources */,
+				C91217312A39C62F00F45028 /* LoadingComponent.swift in Sources */,
 				C912170C2A3771D300F45028 /* Contact.swift in Sources */,
+				C91217392A39C92000F45028 /* ContactProfilePictureError.swift in Sources */,
 				C91217182A3798C900F45028 /* NetworkImageService.swift in Sources */,
 				C91216FC2A37716A00F45028 /* ContactListView.swift in Sources */,
+				C91217352A39C82100F45028 /* LoadingState.swift in Sources */,
 				C91217132A37909700F45028 /* ContactListViewModel.swift in Sources */,
 				C912171F2A389C3800F45028 /* String+ContainsNotCaseSensitive.swift in Sources */,
 				C91217092A3771A600F45028 /* NetworkService.swift in Sources */,
@@ -293,7 +327,9 @@
 				C91216FA2A37716A00F45028 /* ContactListFilteringApp.swift in Sources */,
 				C91217222A38A57400F45028 /* OutOfScopeView.swift in Sources */,
 				C912171C2A387E3E00F45028 /* ContactRowViewModel.swift in Sources */,
+				C91217322A39C62F00F45028 /* ErrorComponent.swift in Sources */,
 				C912172D2A39183500F45028 /* String+ConvertToDate.swift in Sources */,
+				C91217372A39C83900F45028 /* ContactListError.swift in Sources */,
 				C912171A2A3872E800F45028 /* ImageCacheService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
