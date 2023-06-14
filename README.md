@@ -45,3 +45,7 @@ Create a contact list filtering feature using Combine. The goal is to filter a l
 - This value is then passed to the view via the loadingState property to display.
 
 ## Screenshots
+
+![ContactsFullList](https://github.com/MattHeaney23/ContactListFiltering-Combine/assets/129856192/641b0ee7-b544-415d-a686-2f3d9588b6c3) ![ContactsSearch](https://github.com/MattHeaney23/ContactListFiltering-Combine/assets/129856192/78710520-5e21-4cc8-a464-0f4c8b7bb25f)
+
+
