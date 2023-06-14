@@ -10,7 +10,6 @@ import SwiftUI
 struct OutOfScopeView: View {
     
     //MARK: Views - Body
-    
     var body: some View {
         Text("This project focuses only on the **'Contacts'** tab")
             .font(.footnote)

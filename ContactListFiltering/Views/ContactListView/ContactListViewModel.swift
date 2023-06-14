@@ -11,13 +11,14 @@ import Foundation
 class ContactListViewModel: ObservableObject {
     
     private var allContacts: [Contact] = []
-    private let networkService: NetworkService<[Contact]> = NetworkService()
-    
-    @Published var searchTerm: String = ""
     
     @Published var loadingState: LoadingState<[Contact]> = .loading
+    @Published var searchTerm: String = ""
+
+    private let networkService: NetworkService<[Contact]> = NetworkService()
+        
+    private var cancellables = Set<AnyCancellable>()
     
-    var cancellables = Set<AnyCancellable>()
     
     init() {
         fetchStoredContactDetails()
@@ -42,7 +43,7 @@ class ContactListViewModel: ObservableObject {
         }
     }
     
-    func fetchStoredContactDetails() {
+    public func fetchStoredContactDetails() {
         
         guard let url = URLs.contactListURL else {
             self.loadingState = .error(ContactListError.invalidURL)

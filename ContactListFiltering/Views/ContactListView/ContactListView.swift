@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ContactListView: View {
     
+    //MARK: Dependancies
     @ObservedObject var viewModel: ContactListViewModel = ContactListViewModel()
     
     //MARK: Views - Body
-    
     var body: some View {
         switch viewModel.loadingState {
         case .loading: LoadingComponent()
@@ -22,7 +22,6 @@ struct ContactListView: View {
     }
 
     //MARK: Views - Contact List
-    
     func contactList(contacts: [Contact]) -> some View {
         VStack(spacing: 0) {
             TextField("Search...", text: $viewModel.searchTerm)

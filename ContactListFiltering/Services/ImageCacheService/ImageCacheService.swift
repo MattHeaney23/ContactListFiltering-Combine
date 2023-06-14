@@ -9,11 +9,11 @@ import Combine
 import UIKit
 
 class ImageCacheService {
-    //MARK: - Init
+    //MARK: Init
     private init() {}
     static let Shared = ImageCacheService()
     
-    //MARK: - Properties
+    //MARK: Properties
     private let imageCache = NSCache<AnyObject, AnyObject>()
     
     ///Load the image from cache. Emits nil if it doesn't exist in cache.

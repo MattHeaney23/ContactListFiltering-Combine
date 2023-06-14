@@ -9,6 +9,8 @@ import Combine
 import Foundation
 
 class NetworkService<T: Codable> {
+    
+    /// Requests data, emitting the generic type
     func fetchData(url: URL) -> AnyPublisher<T, Error> {
         return URLSession.shared.dataTaskPublisher(for: url)
             .receive(on: DispatchQueue.global(qos: .background))

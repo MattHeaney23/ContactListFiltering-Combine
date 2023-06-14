@@ -9,18 +9,23 @@ import Combine
 import UIKit
 
 class ContactRowViewModel: ObservableObject {
-    
-    let imageDownloader: NetworkImageService
-    let contact: Contact
-    var cancellables = Set<AnyCancellable>()
 
+    //MARK: Published States
     @Published var loadingState: LoadingState<UIImage> = .loading
     
-    init(contact: Contact, imageDownloader: NetworkImageService = .shared) {
+    //MARK: Dependacnies
+    public let contact: Contact
+    private let imageDownloader: NetworkImageService = NetworkImageService()
+    
+    //MARK: Subscriptions
+    private var cancellables = Set<AnyCancellable>()
+
+    //MARK: Initialisers
+    init(contact: Contact) {
         self.contact = contact
-        self.imageDownloader = imageDownloader
     }
     
+    //MARK: Row Lifecycle Events
     func onRowAppear() {
         
         self.loadingState = .loading

@@ -10,7 +10,6 @@ import SwiftUI
 struct LoadingComponent: View {
     
     //MARK: Views - Body
-    
     var body: some View {
         VStack(spacing: 8) {
             

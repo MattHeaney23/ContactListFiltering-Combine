@@ -10,10 +10,11 @@ import UIKit
 
 class NetworkImageService {
     
-    private init() {}
-    static let shared = NetworkImageService()
-    let cache = ImageCacheService.Shared
+    //MARK: Services
+    private let cache = ImageCacheService.Shared
     
+    //MARK: Fetching Image
+    /// Makes a request to the url, after checking the cache. If a network request is required, a delay of 0.1 occurs before to allow for optimised rapid list scrolling
     func getImage(url: URL) -> AnyPublisher<UIImage, Error> {
         
         cache.imageFromCacheIfAvailable(url: url)
@@ -30,7 +31,7 @@ class NetworkImageService {
             .eraseToAnyPublisher()
     }
 
-    func getImageFromNetwork(url: URL) -> AnyPublisher<UIImage, Error> {
+    private func getImageFromNetwork(url: URL) -> AnyPublisher<UIImage, Error> {
         URLSession.shared.dataTaskPublisher(for: url)
             .delay(for: .seconds(0.1), scheduler: DispatchQueue.main)
             .subscribe(on: DispatchQueue.global(qos: .background))

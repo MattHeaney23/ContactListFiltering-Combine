@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ErrorComponent: View {
     
+    //MARK: Dependancies
     let error: Error
     
     //MARK: Views - Body
-    
     var body: some View {
         VStack(spacing: 8) {
             

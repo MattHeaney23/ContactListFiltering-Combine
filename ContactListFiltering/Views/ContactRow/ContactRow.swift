@@ -10,10 +10,10 @@ import SwiftUI
 
 struct ContactRow: View {
     
+    //MARK: Dependancies
     @StateObject var viewModel: ContactRowViewModel
     
     //MARK: Views - Body
-    
     var body: some View {
         
         HStack(spacing: 16) {
@@ -27,7 +27,6 @@ struct ContactRow: View {
     }
     
     //MARK: Views - Profile Picture
-    
     @ViewBuilder
     func userProfilePicture() -> some View {
         switch viewModel.loadingState {
@@ -62,7 +61,6 @@ struct ContactRow: View {
     }
     
     //MARK: Views - User Info Component
-    
     func userInfoComponent() -> some View {
         VStack(spacing: 4) {
             HStack(){
