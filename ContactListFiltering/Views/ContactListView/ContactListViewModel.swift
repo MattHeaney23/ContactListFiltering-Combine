@@ -19,7 +19,6 @@ class ContactListViewModel: ObservableObject {
         
     private var cancellables = Set<AnyCancellable>()
     
-    
     init() {
         fetchStoredContactDetails()
         registerSubscribers()
@@ -27,20 +26,15 @@ class ContactListViewModel: ObservableObject {
     
     private func registerSubscribers() {
         $searchTerm
-            .flatMap { self.searchFilter(newSearchTerm: $0) }
+            .map { searchTerm in
+                if searchTerm.isEmpty {
+                    return self.allContacts
+                } else {
+                    return self.allContacts.filter { $0.name.containsNotCaseSensitive(searchTerm) }
+                }
+            }
             .sink { self.loadingState = .ready($0) }
             .store(in: &cancellables)
-    }
-    
-    private func searchFilter(newSearchTerm: String) -> Just<[Contact]> {
-        if newSearchTerm == "" {
-            return Just(self.allContacts)
-        } else {
-            return Just(self.allContacts)
-                .map {
-                    $0.filter { $0.name.containsNotCaseSensitive(newSearchTerm) }
-                }
-        }
     }
     
     public func fetchStoredContactDetails() {
